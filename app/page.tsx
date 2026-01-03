@@ -205,24 +205,31 @@ const mockCars: Car[] = [
 export default function FeedPage() {
   const [cars, setCars] = useState<Car[]>(mockCars);
 
-  const toggleLike = (id: number) => {
-    setCars((prev) =>
-      prev.map((car) =>
-        car.id === id ? {
-          ...car,
-          liked: !car.liked,
-          likes: car.liked ? car.likes - 1 : car.likes + 1
-        } : car
-      )
-    );
-  };
+ const toggleLike = (id: string | number) => {
+  const carId = Number(id);
 
-  const bookCar = (id: number) => {
-    setCars((prev) =>
-      prev.map((car) => (car.id === id ? { ...car, booked: true } : car))
-    );
-    alert("Car booked successfully!");
-  };
+  setCars((prev) =>
+    prev.map((car) =>
+      car.id === carId
+        ? {
+            ...car,
+            liked: !car.liked,
+            likes: car.liked ? car.likes - 1 : car.likes + 1,
+          }
+        : car
+    )
+  );
+};
+
+const bookCar = (id: string | number) => {
+  const carId = Number(id);
+
+  setCars((prev) =>
+    prev.map((car) =>
+      car.id === carId ? { ...car, booked: true } : car
+    )
+  );
+};
 
 
   return (
